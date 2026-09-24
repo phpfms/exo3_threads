@@ -7,10 +7,8 @@ import java.util.Date;
 public class ThreadTime {
 
   public static void main(String[] args) {
-    DateFormat df = new SimpleDateFormat("HH:mm:ss");
-    Thread thread = new Thread(new MonRunnable(1000));
 
-    System.out.println(df.format(new Date()));
+    Thread thread = new Thread(new MonRunnable(1000));
 
     thread.start();
   }
@@ -18,6 +16,7 @@ public class ThreadTime {
   private static class MonRunnable implements Runnable {
 
     private long delai;
+    DateFormat df = new SimpleDateFormat("HH:mm:ss");
 
     public MonRunnable(long delai) {
       this.delai = delai;
@@ -27,8 +26,9 @@ public class ThreadTime {
     public void run() {
     	while(true) {
 	      try {
+	    	System.out.print("\r " + df.format(new Date()));
+	    	System.out.flush();
 	        Thread.sleep(delai);
-	        System.out.println("-");
 	      } catch (InterruptedException e) {
 	        e.printStackTrace();
 	      }
